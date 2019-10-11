@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+<head>
+	<script src="/node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"></script>
+	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+	<title>LitElement Data Table</title>
+	<style>
+		html,
+		body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+
+		}
+
+		#data-grid {
+			height: 400px;
+			--data-table-element-table-width: 100%
+		}
+	</style>
+  
+</head>
+
+<body>
+	<script>
+		const columnDefinitions = [{
+    field: "name",
+    name: "Name"
+  },
+  {
+    field: "type",
+    name: "Type"
+  },
+  {
+    field: "account",
+    name: "Account"
+  },
+  {
+    field: "business",
+    name: "Business"
+  },
+  
+  {
+    field: "amount",
+    name: "Amount",
+    valueGetter: (rowData) => {
+      return `$${rowData.amount}`;
+    }
+  },
+  {
+    field: "date",
+    name: "Date",
+    valueGetter: (rowData) => {
+      return new Date(rowData.date).toDateString();
+    }
+  }
+];
+
+
+/*
+* We cannot pass a JS Function as a parameter through the DOM lit element, so instead
+* we get the instance of the elment and set it directlty using JavaScript
+*/
+ document.querySelector('#data-table').columnDefinitions = columnDefinitions;
+	</script>
+
+	<data-table-element
+    id="data-table"
+    data='[{"amount":"392.62","date":"2012-02-01T23:00:00.000Z","business":"Mohr Group","name":"Auto Loan Account 8145","type":"withdrawal","account":"99082877"},{"amount":"393.59","date":"2012-02-01T23:00:00.000Z","business":"Goodwin - Johnson","name":"Personal Loan Account 0538","type":"deposit","account":"12225144"},{"amount":"964.47","date":"2012-02-01T23:00:00.000Z","business":"Nienow - Strosin","name":"Savings Account 8691","type":"payment","account":"98822518"},{"amount":"51.38","date":"2012-02-01T23:00:00.000Z","business":"Rosenbaum Inc","name":"Money Market Account 4536","type":"deposit","account":"26946392"},{"amount":"691.89","date":"2012-02-01T23:00:00.000Z","business":"Yundt Group","name":"Personal Loan Account 0201","type":"deposit","account":"02532136"},{"amount":"675.05","date":"2012-02-01T23:00:00.000Z","business":"Mertz - Krajcik","name":"Personal Loan Account 3150","type":"withdrawal","account":"56962516"},{"amount":"304.58","date":"2012-02-01T23:00:00.000Z","business":"Doyle - Baumbach","name":"Money Market Account 9760","type":"withdrawal","account":"77263343"},{"amount":"415.99","date":"2012-02-01T23:00:00.000Z","business":"King - Mitchell","name":"Credit Card Account 2820","type":"withdrawal","account":"26728093"},{"amount":"538.01","date":"2012-02-01T23:00:00.000Z","business":"Gibson, Marks and Borer","name":"Checking Account 4107","type":"withdrawal","account":"33480290"},{"amount":"395.43","date":"2012-02-01T23:00:00.000Z","business":"Graham Group","name":"Investment Account 8159","type":"payment","account":"10021492"},{"amount":"643.06","date":"2012-02-01T23:00:00.000Z","business":"Harris - Zulauf","name":"Auto Loan Account 6205","type":"withdrawal","account":"37757471"}]'
+    ></data-table-element>
+</body>
+
+</html>
